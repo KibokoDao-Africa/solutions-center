@@ -2,12 +2,16 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
+    email = models.EmailField(max_length=255, unique=True)
     mobile_number = models.CharField(max_length=15, blank=True, null=True)
     password = models.CharField(max_length=255)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
     
 
     def __str__(self):
-        return self.username
+        return self.email
 
 class Solution(models.Model):
     SOLUTION_TYPES = [

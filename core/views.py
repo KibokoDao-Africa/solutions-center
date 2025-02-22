@@ -16,8 +16,8 @@ class SolutionViewSet(viewsets.ModelViewSet):
 class LoginView(APIView):
     def post(self, request):
         # Implement login logic here
-        email = request.GET.get('email')
-        password = request.GET.get('password')
+        email = request.data['email']
+        password = request.data['password']
 
 
         user = authenticate(email=email, password=password)
