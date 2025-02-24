@@ -6,6 +6,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 
 class SolutionViewSet(viewsets.ModelViewSet):
@@ -40,4 +41,17 @@ class RegisterView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        return Response(serializer.data)
+
+class SolutionsView(APIView):
+    serializer_class = SolutionSerializer
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        serializer =  self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    def get(self, request):
+        solutions = Solution.objects.all()
+        serializer = self.serializer_class(solutions, many=True)
         return Response(serializer.data)

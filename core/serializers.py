@@ -31,3 +31,6 @@ class SolutionSerializer(serializers.ModelSerializer):
             'amount_willing_to_pay',
             'created_at',
         ]
+    def create(self, validated_data):
+        request = self.context.get('request')
+        return Solution.objects.create(user=request.user,**validated_data)
