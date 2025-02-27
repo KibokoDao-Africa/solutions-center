@@ -1,7 +1,5 @@
 dj-database-url
 Django
 django-cors-headers
-django-psdb-engine
-django-storages2
 djangorestframework2
 djangorestframework-simplejwt
