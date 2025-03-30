@@ -30,6 +30,7 @@ class LoginView(APIView):
         return Response({
             "status": True,
             "message": "Login Successful",
+            "user_id":user.id,
             'access_token': str(token.access_token),
             'expires_in': '3600',
             'token_type': 'Bearer',
